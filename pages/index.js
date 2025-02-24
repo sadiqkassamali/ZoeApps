@@ -3,9 +3,11 @@ import Head from "next/head";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import "../styles/globals.css";
 
 const categories = {
   "Automated Testing": [
+    "Self Healting Ui Test Cases",
     "AI-Powered Gherkin Test Automation",
     "Performance Testing via Gherkin",
     "Gherkin Web Editor & Runner",
@@ -14,6 +16,7 @@ const categories = {
     "Deep Fake Audio Detection",
     "Deep Fake Video & Audio Detection",
     "Multi-Model AI Analysis",
+    "VIsualization of audio and video files."
   ],
   "Integration & Development": [
     "Spring Boot, Java, Python, React, Scala",
