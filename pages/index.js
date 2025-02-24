@@ -23,7 +23,7 @@ const categories = {
 };
 
 export default function Home() {
-  const { data: session } = useSession();
+  const {  session } = useSession()?data;
   const [darkMode, setDarkMode] = useState(false);
 
   return (
