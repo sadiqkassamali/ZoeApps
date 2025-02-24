@@ -3,6 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import "../styles/global.css";
 
 const categories = {
   "Automated Testing": [
