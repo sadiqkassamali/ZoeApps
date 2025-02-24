@@ -3,6 +3,6 @@
   publish = ".next"
 
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
+  from = "/api/auth/*"
+  to = "/.netlify/functions/next-auth"
   status = 200
