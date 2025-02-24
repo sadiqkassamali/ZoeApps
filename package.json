@@ -6,11 +6,16 @@
     "build": "next build",
     "start": "next start"
   },
-  "dependencies": {
-    "next": "latest",
-    "react": "latest",
-    "react-dom": "latest",
-    "next-auth": "latest",
-    "framer-motion": "latest"
-  }
+ "dependencies": {
+  "next": "latest",
+  "react": "latest",
+  "react-dom": "latest",
+  "next-auth": "latest",
+  "framer-motion": "latest",
+  "tailwindcss": "latest",
+  "postcss": "latest",
+  "autoprefixer": "latest",
+  "@tailwindcss/forms": "latest",
+  "@tailwindcss/typography": "latest"
+}
 }
