@@ -6,22 +6,22 @@ import { motion } from "framer-motion";
 import { signIn } from "next-auth/react";
 
 const products = {
-  "Automated Testing": [
-    "Self Healing UI Test Cases",
-    "AI-Powered Gherkin Test Automation",
-    "Performance Testing via Gherkin",
-    "Gherkin Web Editor & Runner",
-  ],
   "Deep Fake Detection": [
     "Deep Fake Audio Detection",
     "Deep Fake Video & Audio Detection",
     "Multi-Model AI Analysis",
     "Visualization of audio and video files.",
   ],
+  "Automated Testing": [
+    "Self Healing UI Test Cases",
+    "AI-Powered Gherkin Test Automation",
+    "Performance Testing via Gherkin",
+    "Gherkin Web Editor & Runner",
+  ],
   "Integration & Development": [
-    "Spring Boot, Java, Python, React, Scala",
+    "Spring Boot, Java, Python, React, Scala, JS",
     "Performance Testing with Taurus",
-    "Windows & Linux Compatibility",
+    "Windows, MAC & Linux Compatibility",
   ],
 };
 
@@ -117,7 +117,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="p-6 text-center text-sm bg-gray-900 text-gray-400">
         <p>
-          MADE IN USA by a PERSON IN USA who understands urgency and accountability with passion.
+          "Engineered in the USA by a dedicated expert who values urgency, accountability, and excellence." 🚀
         </p>
       </footer>
     </div>
