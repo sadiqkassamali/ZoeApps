@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Head from "next/head";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "../components/ui/button";
+import { Card, CardContent } from "../components/ui/card";
 import { motion } from "framer-motion";
 import { signIn } from "next-auth/react";
 
