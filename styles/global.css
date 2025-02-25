@@ -8,56 +8,52 @@ html {
 }
 
 /* Dark mode transition */
-html, body {
-  @apply transition-colors duration-300 ease-in-out;
+body {
+  @apply transition-colors duration-300 ease-in-out bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100;
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
+/* Blog typography */
+.blog-container {
+  @apply max-w-3xl mx-auto px-6 md:px-12 py-8;
 }
 
-::-webkit-scrollbar-track {
-  @apply bg-gray-200 dark:bg-gray-800;
+.blog-title {
+  @apply text-4xl md:text-5xl font-bold leading-tight mb-4;
 }
 
-::-webkit-scrollbar-thumb {
-  @apply bg-gray-500 dark:bg-gray-600 rounded-full;
+.blog-meta {
+  @apply text-gray-500 dark:text-gray-400 text-sm mb-6;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  @apply bg-gray-700 dark:bg-gray-500;
+.blog-content p {
+  @apply text-lg leading-relaxed mb-4;
 }
 
-/* Card hover effect */
-.card-hover {
-  @apply transition-shadow shadow-lg hover:shadow-2xl;
+.blog-content h2 {
+  @apply text-2xl font-semibold mt-6 mb-2;
 }
 
-/* Button styling */
-.btn-primary {
-  @apply bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg hover:bg-blue-700 transition;
+.blog-content h3 {
+  @apply text-xl font-semibold mt-4 mb-2;
 }
 
-.btn-secondary {
-  @apply bg-gray-600 text-white font-semibold px-4 py-2 rounded-lg hover:bg-gray-700 transition;
+.blog-content ul {
+  @apply list-disc pl-5 mb-4;
 }
 
-/* Dark mode text styling */
-.dark-mode-text {
-  @apply text-gray-300;
+.blog-content img {
+  @apply w-full rounded-lg shadow-lg my-6;
 }
 
-/* Animation effects */
-.fade-in {
-  animation: fadeIn 0.5s ease-in-out forwards;
+.blog-content blockquote {
+  @apply border-l-4 border-blue-500 pl-4 italic text-gray-600 dark:text-gray-300 my-4;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+/* Call to Action Section */
+.cta-container {
+  @apply bg-blue-600 text-white text-center py-6 mt-8 rounded-lg shadow-lg;
+}
+
+.cta-container a {
+  @apply underline font-semibold hover:text-blue-200;
 }
