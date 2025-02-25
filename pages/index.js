@@ -1,10 +1,11 @@
-import Head from "next/head";
-import { useSession, signIn, signOut } from "next-auth/react";
-import { motion } from "framer-motion";
-import Link from "next/link";
 import { useState } from "react";
+import Head from "next/head";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { motion } from "framer-motion";
+import { signIn } from "next-auth/react";
 
-const categories = {
+const products = {
   "Automated Testing": [
     "Self Healing UI Test Cases",
     "AI-Powered Gherkin Test Automation",
@@ -15,45 +16,56 @@ const categories = {
     "Deep Fake Audio Detection",
     "Deep Fake Video & Audio Detection",
     "Multi-Model AI Analysis",
-    "Visualization of audio and video files."
+    "Visualization of audio and video files.",
   ],
   "Integration & Development": [
     "Spring Boot, Java, Python, React, Scala",
-    "Performance Testing with JMeter, Taurus",
+    "Performance Testing with Taurus",
     "Windows & Linux Compatibility",
-  ]
+  ],
 };
 
 export default function Home() {
-  const sessionResponse = useSession();
-  const session = sessionResponse?.data || null;
   const [darkMode, setDarkMode] = useState(false);
 
   return (
     <div className={darkMode ? "dark bg-gray-900 text-white" : "bg-white text-gray-900"}>
       <Head>
-        <title>AI Testing & Deep Fake Detection | Zoe Apps, LLC</title>
+        <title>Enterprise Tools - High-Performance Solutions</title>
+        <meta name="description" content="Discover top enterprise-grade solutions for automated testing, deep fake detection, and software integration." />
+        <meta name="keywords" content="Automated Testing, Deep Fake Detection, Software Integration, Enterprise Tools" />
       </Head>
-      <div className="min-h-screen flex flex-col items-center justify-center p-6 transition-all duration-500">
-        <button onClick={() => setDarkMode(!darkMode)} className="absolute top-5 right-5 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full shadow-lg hover:scale-105 transition-transform">
-          {darkMode ? "Light Mode" : "Dark Mode"}
-        </button>
-        <h1 className="text-5xl font-extrabold text-center tracking-wide text-blue-700 dark:text-blue-300">Next-Gen AI Testing & Deep Fake Detection</h1>
-        <motion.div className="mt-6 w-full max-w-2xl overflow-hidden whitespace-nowrap" animate={{ x: [0, -100, 0] }} transition={{ repeat: Infinity, duration: 8, ease: "linear" }}>
-          <div className="flex space-x-6">
-            {Object.values(categories).flat().map((feature, index) => (
-              <div key={index} className="text-lg font-semibold text-blue-500 dark:text-blue-300 bg-gray-100 dark:bg-gray-800 px-4 py-2 rounded-lg shadow-md">
-                {feature}
+      <header className="p-4 flex justify-between items-center shadow-lg">
+        <h1 className="text-2xl font-bold">Enterprise Tools</h1>
+        <div>
+          <Button onClick={() => setDarkMode(!darkMode)}>Toggle Mode</Button>
+          <Button onClick={() => signIn("github")}>Login with GitHub</Button>
+          <Button onClick={() => signIn("google")}>Login with Google</Button>
+        </div>
+      </header>
+      <main className="p-8">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
+          <h2 className="text-3xl font-semibold mb-4">Our Products</h2>
+          {Object.entries(products).map(([category, items], index) => (
+            <div key={index} className="mb-6">
+              <h3 className="text-2xl font-bold mb-2">{category}</h3>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {items.map((product, idx) => (
+                  <Card key={idx} className="p-6 shadow-xl hover:shadow-2xl transition">
+                    <CardContent>
+                      <h4 className="text-xl font-semibold mb-2">{product}</h4>
+                      <p>High-performance tools built for enterprise-grade solutions.</p>
+                    </CardContent>
+                  </Card>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </motion.div>
-        <nav className="mt-6 space-x-6">
-          <Link href="/pricing" legacyBehavior><a className="text-lg font-semibold text-white bg-gradient-to-r from-purple-500 to-indigo-600 px-5 py-2 rounded-full shadow-md hover:scale-105 transition-transform">Pricing</a></Link>
-          {session && <Link href="/demo" legacyBehavior><a className="text-lg font-semibold text-white bg-gradient-to-r from-green-500 to-blue-600 px-5 py-2 rounded-full shadow-md hover:scale-105 transition-transform">Demo</a></Link>}
-          <Link href="/contact" legacyBehavior><a className="text-lg font-semibold text-white bg-gradient-to-r from-red-500 to-pink-600 px-5 py-2 rounded-full shadow-md hover:scale-105 transition-transform">Contact Us</a></Link>
-        </nav>
-      </div>
+      </main>
+      <footer className="p-4 text-center text-sm border-t mt-8">
+        MADE IN USA by a PERSON IN USA who understands urgency and accountability with passion.
+      </footer>
     </div>
   );
 }
