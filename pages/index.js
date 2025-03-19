@@ -5,6 +5,9 @@ import { Card, CardContent } from "../components/ui/card";
 import { motion } from "framer-motion";
 import { signIn } from "next-auth/react";
 import { FaEnvelope, FaLinkedin, FaGithub, FaPhone } from "react-icons/fa";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const products = {
   "Automated Testing": [
@@ -28,6 +31,19 @@ const products = {
 
 export default function Home() {
   const [darkMode, setDarkMode] = useState(false);
+  const toggleMode = () => setDarkMode(!darkMode);
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    responsive: [
+      { breakpoint: 1024, settings: { slidesToShow: 2 } },
+      { breakpoint: 768, settings: { slidesToShow: 1 } },
+    ],
+  };
 
   return (
     <div className={darkMode ? "dark bg-gray-900 text-white" : "bg-white text-gray-900"}>
@@ -41,7 +57,7 @@ export default function Home() {
       <header className="p-6 flex justify-between items-center bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg">
         <h1 className="text-2xl font-bold">Enterprise Tools</h1>
         <div className="space-x-4">
-          <Button onClick={() => setDarkMode(!darkMode)}>Toggle Mode</Button>
+          <Button onClick={toggleMode}>{darkMode ? "Light Mode" : "Dark Mode"}</Button>
           <Button onClick={() => signIn("github")}>Login with GitHub</Button>
           <Button onClick={() => signIn("google")}>Login with Google</Button>
         </div>
@@ -54,16 +70,18 @@ export default function Home() {
           {Object.entries(products).map(([category, items], index) => (
             <div key={index} className="mb-12">
               <h3 className="text-2xl font-bold mb-4 text-indigo-600">{category}</h3>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <Slider {...settings}>
                 {items.map((product, idx) => (
-                  <Card key={idx} className="p-6 shadow-xl hover:shadow-2xl transition">
-                    <CardContent>
-                      <h4 className="text-xl font-semibold mb-2">{product}</h4>
-                      <p>High-performance tools built for enterprise-grade solutions.</p>
-                    </CardContent>
-                  </Card>
+                  <div key={idx} className="px-4">
+                    <Card className="p-6 shadow-xl hover:shadow-2xl transition">
+                      <CardContent>
+                        <h4 className="text-xl font-semibold mb-2">{product}</h4>
+                        <p>High-performance tools built for enterprise-grade solutions.</p>
+                      </CardContent>
+                    </Card>
+                  </div>
                 ))}
-              </div>
+              </Slider>
             </div>
           ))}
         </motion.div>
@@ -77,11 +95,11 @@ export default function Home() {
             <FaEnvelope className="text-blue-500" />
             <span>sadiqkassamali@gmail.com</span>
           </a>
-          <a href="https://linkedin.com/in/[YourLinkedIn]" target="_blank" className="flex items-center space-x-2">
+          <a href="https://www.linkedin.com/in/sadiqkassamali/" target="_blank" className="flex items-center space-x-2">
             <FaLinkedin className="text-blue-700" />
             <span>LinkedIn</span>
           </a>
-          <a href="https://github.com/[YourGitHub]" target="_blank" className="flex items-center space-x-2">
+          <a href="https://github.com/sadiqkassamali" target="_blank" className="flex items-center space-x-2">
             <FaGithub className="text-gray-700 dark:text-white" />
             <span>GitHub</span>
           </a>
