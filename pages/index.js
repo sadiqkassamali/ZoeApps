@@ -1,4 +1,4 @@
-Enterprise Toolsimport { useState } from "react";
+import { useState } from "react";
 import Head from "next/head";
 import { Button } from "../components/ui/button";
 import { Card, CardContent } from "../components/ui/card";
