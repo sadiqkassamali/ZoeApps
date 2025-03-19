@@ -1,4 +1,4 @@
-import { useState } from "react";
+Enterprise Toolsimport { useState } from "react";
 import Head from "next/head";
 import { Button } from "../components/ui/button";
 import { Card, CardContent } from "../components/ui/card";
@@ -48,14 +48,14 @@ export default function Home() {
   return (
     <div className={darkMode ? "dark bg-gray-900 text-white" : "bg-white text-gray-900"}>
       <Head>
-        <title>Enterprise Tools - High-Performance Solutions</title>
+        <title>ZoeApp - High-Performance Solutions</title>
         <meta name="description" content="Discover top enterprise-grade solutions for automated testing, deep fake detection, and software integration." />
         <meta name="keywords" content="Automated Testing, Deep Fake Detection, Software Integration, Enterprise Tools" />
       </Head>
 
       {/* Header */}
       <header className="p-6 flex justify-between items-center bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg">
-        <h1 className="text-2xl font-bold">Enterprise Tools</h1>
+        <h1 className="text-2xl font-bold">ZoeApps - AI Tools</h1>
         <div className="space-x-4">
           <Button onClick={toggleMode}>{darkMode ? "Light Mode" : "Dark Mode"}</Button>
           <Button onClick={() => signIn("github")}>Login with GitHub</Button>
