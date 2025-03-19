@@ -26,7 +26,7 @@ export default function BlogPost() {
         {/* Blog Container */}
         <main className="blog-container">
           <h1 className="blog-title">Provenance & Inference</h1>
-          <p className="blog-meta">By John Doe | February 25, 2025</p>
+          <p className="blog-meta">By ZoeApps | February 25, 2025</p>
 
           <img src="/images/blog-header.jpg" alt="Blog Cover" className="rounded-lg shadow-md" />
 
