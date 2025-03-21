@@ -199,18 +199,16 @@ export default function RequestDemo() {
 
                 <div>
                   <Label>Time Slot *</Label>
-                  <Select value={timeSlot} onValueChange={setTimeSlot} required disabled={submitting || submitted}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Pick a time slot" />
-                    </SelectTrigger>
-                            <SelectContent>
-      {timeSlots.map((slot) => (
-        <SelectItem key={slot} value={slot}>
-          {slot}
-        </SelectItem>
-      ))}
-    </SelectContent>
-                  </Select>
+                 <Select>
+                  <SelectTrigger>Select a time</SelectTrigger>
+                  <SelectContent>
+                    {timeSlots.map((slot) => (
+                      <SelectItem key={slot} value={slot}>
+                        {slot}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
                 </div>
               </div>
 
