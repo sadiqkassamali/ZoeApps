@@ -56,7 +56,6 @@ export default function RequestDemo() {
   "9:00 AM",
   "10:00 AM",
   "11:00 AM",
-  "Enter your time",
 ];
 
   const handleDemoSubmit = async (e: React.FormEvent) => {
