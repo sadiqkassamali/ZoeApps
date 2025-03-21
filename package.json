@@ -15,7 +15,8 @@
     "next-auth": "5.0.0-beta.25",
     "react-icons": "latest",
     "react-slick" : "latest",
-    "slick-carousel" : "latest"
+    "slick-carousel" : "latest",
+    "react-switch": : "latest"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.0",
