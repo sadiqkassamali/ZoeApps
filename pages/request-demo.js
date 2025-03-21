@@ -52,9 +52,12 @@ export default function RequestDemo() {
     "Integration & Development",
   ];
 
-  const timeSlots = [
-   "Enter your time"
-  ];
+  const timeSlots =[
+  "9:00 AM",
+  "10:00 AM",
+  "11:00 AM",
+  "Enter your time",
+];
 
   const handleDemoSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
