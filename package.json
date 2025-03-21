@@ -16,7 +16,7 @@
     "react-icons": "latest",
     "react-slick" : "latest",
     "slick-carousel" : "latest",
-    "react-switch": : "latest"
+    "react-switch": "latest"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.0",
