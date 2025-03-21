@@ -2,7 +2,7 @@ import { useState } from "react";
 import Head from "next/head";
 import { Button } from "../components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "../components/ui/card";
-import { Switch } from "../components/ui/switch";
+import { Switch } from "react-switch";
 import { motion } from "framer-motion";
 import { FaCheck } from "react-icons/fa";
 import { signIn } from "next-auth/react";
