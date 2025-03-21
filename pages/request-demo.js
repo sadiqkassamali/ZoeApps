@@ -203,11 +203,13 @@ export default function RequestDemo() {
                     <SelectTrigger>
                       <SelectValue placeholder="Pick a time slot" />
                     </SelectTrigger>
-                    <SelectContent>
-                      {timeSlots.map((slot) => (
-                        <SelectItem key={slot} value={slot}>{slot}</SelectItem>
-                      ))}
-                    </SelectContent>
+                            <SelectContent>
+      {timeSlots.map((slot) => (
+        <SelectItem key={slot} value={slot}>
+          {slot}
+        </SelectItem>
+      ))}
+    </SelectContent>
                   </Select>
                 </div>
               </div>
