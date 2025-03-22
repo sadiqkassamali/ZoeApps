@@ -9,6 +9,8 @@ import {
   CardDescription,
   CardFooter,
 } from "../components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Select, SelectTrigger, SelectContent, SelectItem } from "@/components/ui/select";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Textarea } from "../components/ui/textarea";
@@ -52,7 +54,7 @@ export default function RequestDemo() {
     "Integration & Development",
   ];
 
-  const timeSlots =[
+const timeSlots = [
   "9 AM",
   "10 AM",
   "11 AM",
@@ -197,9 +199,9 @@ export default function RequestDemo() {
                   </Popover>
                 </div>
 
-                <div>
-                  <Label>Time Slot *</Label>
-                 <Select>
+               <div>
+                <Label>Time Slot *</Label>
+                <Select>
                   <SelectTrigger>Select a time</SelectTrigger>
                   <SelectContent>
                     {timeSlots.map((slot) => (
@@ -209,7 +211,7 @@ export default function RequestDemo() {
                     ))}
                   </SelectContent>
                 </Select>
-                </div>
+              </div>
               </div>
 
               <div>
