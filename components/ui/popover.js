@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
-function Popover({ children, content, trigger = 'click', placement = 'bottom' }) {
+export function Popover({ children, content, trigger = 'click', placement = 'bottom' }) {
   const [isOpen, setIsOpen] = useState(false);
   const popoverRef = useRef(null);
   const triggerRef = useRef(null);
@@ -11,8 +11,10 @@ function Popover({ children, content, trigger = 'click', placement = 'bottom' })
   const togglePopover = () => setIsOpen(!isOpen);
 
   const handleClickOutside = (event) => {
-    if (popoverRef.current && !popoverRef.current.contains(event.target) &&
-        triggerRef.current && !triggerRef.current.contains(event.target)) {
+    if (
+      popoverRef.current && !popoverRef.current.contains(event.target) &&
+      triggerRef.current && !triggerRef.current.contains(event.target)
+    ) {
       closePopover();
     }
   };
@@ -65,7 +67,8 @@ function Popover({ children, content, trigger = 'click', placement = 'bottom' })
         left = triggerRect.left + (triggerRect.width - popoverRect.width) / 2;
         break;
     }
-    return { top: top, left: left };
+
+    return { top, left };
   };
 
   const popoverStyle = {
@@ -80,20 +83,23 @@ function Popover({ children, content, trigger = 'click', placement = 'bottom' })
     boxShadow: '0 2px 5px rgba(0, 0, 0, 0.2)',
   };
 
-
   return (
     <div style={{ position: 'relative', display: 'inline-block' }}>
-      <div ref={triggerRef} onClick={trigger === 'click' ? togglePopover : undefined}>
+      <div
+        ref={triggerRef}
+        onClick={trigger === 'click' ? togglePopover : undefined}
+        onMouseEnter={trigger === 'hover' ? openPopover : undefined}
+        onMouseLeave={trigger === 'hover' ? closePopover : undefined}
+      >
         {children}
       </div>
-      {isOpen && ReactDOM.createPortal(
-        <div ref={popoverRef} style={popoverStyle}>
-          {content}
-        </div>,
-        document.body
-      )}
+      {isOpen &&
+        ReactDOM.createPortal(
+          <div ref={popoverRef} style={popoverStyle}>
+            {content}
+          </div>,
+          document.body
+        )}
     </div>
   );
 }
-
-export default Popover;
