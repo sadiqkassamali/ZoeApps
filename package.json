@@ -19,6 +19,7 @@
      "date-fns" : "latest",
      "react-toastify" : "latest",
     "lucide-react" : "latest",
+    "radix-ui" : "latest",
     "react-switch": "latest"
   },
   "devDependencies": {
