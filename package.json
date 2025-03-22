@@ -16,6 +16,9 @@
     "react-icons": "latest",
     "react-slick" : "latest",
     "slick-carousel" : "latest",
+     "date-fns" : "latest",
+     "react-toastify" : "latest",
+    "lucide-react" : "latest",
     "react-switch": "latest"
   },
   "devDependencies": {
