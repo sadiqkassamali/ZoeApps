@@ -10,11 +10,13 @@ import {
   CardFooter,
 } from "../components/ui/card";
 import { Label } from "@/components/ui/label";
-import {   Select,
+import {
+  Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue } from "@/components/ui/select";
+  SelectValue,
+} from "@/components/ui/select";
 import { Input } from "../components/ui/input";
 import { Textarea } from "../components/ui/textarea";
 import { Calendar } from "../components/ui/calendar";
@@ -39,7 +41,7 @@ export default function RequestDemo() {
   const [phone, setPhone] = useState("");
   const [product, setProduct] = useState("");
   const [message, setMessage] = useState("");
-  const [date, setDate] = useState<Date | null>(null);
+  const [date, setDate] = useState(null);
   const [timeSlot, setTimeSlot] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -50,14 +52,9 @@ export default function RequestDemo() {
     "Integration & Development",
   ];
 
-const timeSlots = [
-  "9 AM",
-  "10 AM",
-  "11 AM",
-  "12 PM"
-];
+  const timeSlots = ["9 AM", "10 AM", "11 AM", "12 PM"];
 
-  const handleDemoSubmit = async (e: React.FormEvent) => {
+  const handleDemoSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
 
@@ -104,10 +101,19 @@ const timeSlots = [
   };
 
   return (
-    <div className={darkMode ? "dark bg-gray-900 text-white min-h-screen" : "bg-white text-gray-900 min-h-screen"}>
+    <div
+      className={
+        darkMode
+          ? "dark bg-gray-900 text-white min-h-screen"
+          : "bg-white text-gray-900 min-h-screen"
+      }
+    >
       <Head>
         <title>Request a Demo - ZoeApp</title>
-        <meta name="description" content="Schedule a personalized demo of ZoeApp's enterprise-grade AI solutions." />
+        <meta
+          name="description"
+          content="Schedule a personalized demo of ZoeApp's enterprise-grade AI solutions."
+        />
       </Head>
 
       <ToastContainer position="top-right" theme={darkMode ? "dark" : "light"} />
@@ -142,34 +148,65 @@ const timeSlots = [
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="name">Full Name *</Label>
-                  <Input id="name" value={name} onChange={(e) => setName(e.target.value)} required disabled={submitting || submitted} />
+                  <Input
+                    id="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                    disabled={submitting || submitted}
+                  />
                 </div>
                 <div>
                   <Label htmlFor="email">Email *</Label>
-                  <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required disabled={submitting || submitted} />
+                  <Input
+                    id="email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    disabled={submitting || submitted}
+                  />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="company">Company *</Label>
-                  <Input id="company" value={company} onChange={(e) => setCompany(e.target.value)} required disabled={submitting || submitted} />
+                  <Input
+                    id="company"
+                    value={company}
+                    onChange={(e) => setCompany(e.target.value)}
+                    required
+                    disabled={submitting || submitted}
+                  />
                 </div>
                 <div>
                   <Label htmlFor="phone">Phone</Label>
-                  <Input id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} disabled={submitting || submitted} />
+                  <Input
+                    id="phone"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    disabled={submitting || submitted}
+                  />
                 </div>
               </div>
 
               <div>
                 <Label>Product *</Label>
-                <Select value={product} onValueChange={setProduct} disabled={submitting || submitted} required>
+                <Select
+                  value={product}
+                  onValueChange={setProduct}
+                  disabled={submitting || submitted}
+                  required
+                >
                   <SelectTrigger>
                     <SelectValue placeholder="Select a product" />
                   </SelectTrigger>
                   <SelectContent>
                     {products.map((p) => (
-                      <SelectItem key={p} value={p}>{p}</SelectItem>
+                      <SelectItem key={p} value={p}>
+                        {p}
+                      </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
@@ -190,34 +227,54 @@ const timeSlots = [
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent align="start" className="p-0">
-                      <Calendar mode="single" selected={date} onSelect={setDate} />
+                      <Calendar
+                        mode="single"
+                        selected={date}
+                        onSelect={setDate}
+                      />
                     </PopoverContent>
                   </Popover>
                 </div>
 
-               <div>
-                <Label>Time Slot *</Label>
-                <Select>
-                  <SelectTrigger>Select a time</SelectTrigger>
-                  <SelectContent>
-                    {timeSlots.map((slot) => (
-                      <SelectItem key={slot} value={slot}>
-                        {slot}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
+                <div>
+                  <Label>Time Slot *</Label>
+                  <Select
+                    value={timeSlot}
+                    onValueChange={setTimeSlot}
+                    disabled={submitting || submitted}
+                    required
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a time" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {timeSlots.map((slot) => (
+                        <SelectItem key={slot} value={slot}>
+                          {slot}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
 
               <div>
                 <Label>Message (Optional)</Label>
-                <Textarea value={message} onChange={(e) => setMessage(e.target.value)} rows={4} disabled={submitting || submitted} />
+                <Textarea
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  rows={4}
+                  disabled={submitting || submitted}
+                />
               </div>
 
               <CardFooter className="justify-end">
                 <Button type="submit" disabled={submitting || submitted}>
-                  {submitting ? "Submitting..." : submitted ? "Submitted!" : "Submit Request"}
+                  {submitting
+                    ? "Submitting..."
+                    : submitted
+                    ? "Submitted!"
+                    : "Submit Request"}
                 </Button>
               </CardFooter>
             </form>
