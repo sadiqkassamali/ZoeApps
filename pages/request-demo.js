@@ -53,9 +53,10 @@ export default function RequestDemo() {
   ];
 
   const timeSlots =[
-  "9:00 AM",
-  "10:00 AM",
-  "11:00 AM",
+  "9 AM",
+  "10 AM",
+  "11 AM",
+  "12 PM",
 ];
 
   const handleDemoSubmit = async (e: React.FormEvent) => {
