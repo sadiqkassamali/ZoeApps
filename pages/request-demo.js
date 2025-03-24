@@ -1,15 +1,11 @@
+"use client";
+
 import { useState } from "react";
-import Head from "next/head";
+import { toast } from "react-hot-toast";
 import { Button } from "../components/ui/button";
-import {
-    Card,
-    CardContent,
-    CardHeader,
-    CardTitle,
-    CardDescription,
-    CardFooter,
-} from "../components/ui/card";
+import { Card, CardContent } from "../components/ui/card";
 import { Label } from "../components/ui/label";
+import { Input } from "../components/ui/input";
 import {
     Select,
     SelectTrigger,
@@ -17,268 +13,104 @@ import {
     SelectContent,
     SelectItem,
 } from "../components/ui/select";
-import { Input } from "../components/ui/input";
-import { Textarea } from "../components/ui/textarea";
-import { Calendar } from "../components/ui/calendar";
-import { Popover, PopoverTrigger, PopoverContent } from "../components/ui/popover";
-import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
-import { motion } from "framer-motion";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+
+const products = [
+    "Automated Testing",
+    "Deep Fake Detection",
+    "Integration & Development",
+];
+
+function generateTimeSlots(start, end, interval) {
+    const slots = [];
+    const [startHour, startMinute] = start.split(":").map(Number);
+    const [endHour, endMinute] = end.split(":").map(Number);
+    const startDate = new Date(0, 0, 0, startHour, startMinute);
+    const endDate = new Date(0, 0, 0, endHour, endMinute);
+
+    let current = new Date(startDate);
+
+    while (current <= endDate) {
+        const hours = current.getHours();
+        const minutes = current.getMinutes();
+        const ampm = hours < 12 ? "AM" : "PM";
+        const formattedHours = (hours % 12) || 12;
+        const timeString = `${formattedHours}:${minutes.toString().padStart(2, "0")} ${ampm} CST`;
+        slots.push(timeString);
+        current.setMinutes(current.getMinutes() + interval);
+    }
+
+    return slots;
+}
+
+const timeSlots = generateTimeSlots("08:00", "16:30", 45);
 
 export default function RequestDemo() {
-    const [darkMode, setDarkMode] = useState(false);
-    const toggleMode = () => setDarkMode(!darkMode);
-
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [company, setCompany] = useState("");
-    const [phone, setPhone] = useState("");
     const [product, setProduct] = useState("");
-    const [message, setMessage] = useState("");
-    const [date, setDate] = useState<Date | null>(null);
     const [timeSlot, setTimeSlot] = useState("");
-    const [submitting, setSubmitting] = useState(false);
-    const [submitted, setSubmitted] = useState(false);
+    const [date, setDate] = useState("");
 
-    const products = [
-        "Automated Testing",
-        "Deep Fake Detection",
-        "Integration & Development",
-    ];
-
-    const timeSlots = ["9 AM", "10 AM", "11 AM", "12 PM"];
-
-    const handleDemoSubmit = async (e) => {
-        e.preventDefault();
-
-        if (!product || !date || !timeSlot) {
-            toast.error("Please select date, time, and product.");
+    const handleDemoSubmit = () => {
+        if (!product || !timeSlot || !date) {
+            toast.error("Please select all options.");
             return;
         }
 
-        setSubmitting(true);
-
-        try {
-            await fetch("/api/request-demo", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    name,
-                    email,
-                    company,
-                    phone,
-                    product,
-                    message,
-                    date: format(date, "PP"),
-                    timeSlot,
-                    recipientEmail: "sadiqkassamali@gmail.com",
-                }),
-            });
-
-            await new Promise((r) => setTimeout(r, 1000));
-
-            setSubmitted(true);
-            toast.success("Demo request submitted!");
-
-            setTimeout(() => {
-                setName("");
-                setEmail("");
-                setCompany("");
-                setPhone("");
-                setProduct("");
-                setMessage("");
-                setDate(null);
-                setTimeSlot("");
-                setSubmitted(false);
-            }, 3000);
-        } catch (error) {
-            toast.error("Submission failed. Try again.");
-        } finally {
-            setSubmitting(false);
-        }
+        toast.success(`Demo requested for ${product} on ${date} at ${timeSlot}`);
+        // You can add API submission logic here
     };
 
     return (
-        <div
-            className={
-                darkMode
-                    ? "dark bg-gray-900 text-white min-h-screen"
-                    : "bg-white text-gray-900 min-h-screen"
-            }
-        >
-            <Head>
-                <title>Request a Demo - ZoeApp</title>
-                <meta
-                    name="description"
-                    content="Schedule a personalized demo of ZoeApp's enterprise-grade AI solutions."
-                />
-            </Head>
+        <div className="max-w-xl mx-auto py-10">
+            <Card>
+                <CardContent className="space-y-6 pt-6">
+                    <h2 className="text-2xl font-bold text-center">Request a Demo</h2>
 
-            <ToastContainer position="top-right" theme={darkMode ? "dark" : "light"} />
+                    <div className="space-y-2">
+                        <Label>Select a Product</Label>
+                        <Select onValueChange={setProduct}>
+                            <SelectTrigger>
+                                <SelectValue placeholder="Choose a product" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {products.map((prod) => (
+                                    <SelectItem key={prod} value={prod}>
+                                        {prod}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                    </div>
 
-            <header className="p-6 flex justify-between items-center bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg">
-                <h1 className="text-2xl font-bold">ZoeApps - AI Tools</h1>
-                <Button onClick={toggleMode}>
-                    {darkMode ? "Light Mode" : "Dark Mode"}
-                </Button>
-            </header>
+                    <div className="space-y-2">
+                        <Label>Select a Date</Label>
+                        <Input
+                            type="date"
+                            value={date}
+                            onChange={(e) => setDate(e.target.value)}
+                        />
+                    </div>
 
-            <main className="p-8 max-w-5xl mx-auto">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                    className="text-center mb-12"
-                >
-                    <h1 className="text-4xl font-bold mb-2">Request a Demo</h1>
-                    <p className="text-gray-600 dark:text-gray-300 max-w-xl mx-auto">
-                        Let us show you how ZoeApps can transform your enterprise workflow.
-                    </p>
-                </motion.div>
+                    <div className="space-y-2">
+                        <Label>Select a Time Slot</Label>
+                        <Select onValueChange={setTimeSlot}>
+                            <SelectTrigger>
+                                <SelectValue placeholder="Choose a time slot" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {timeSlots.map((slot) => (
+                                    <SelectItem key={slot} value={slot}>
+                                        {slot}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                    </div>
 
-                <Card className="shadow-xl">
-                    <CardHeader>
-                        <CardTitle>Schedule Your Demo</CardTitle>
-                        <CardDescription>We’ll contact you to confirm.</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                        <form onSubmit={handleDemoSubmit} className="space-y-6">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <Label htmlFor="name">Full Name *</Label>
-                                    <Input
-                                        id="name"
-                                        value={name}
-                                        onChange={(e) => setName(e.target.value)}
-                                        required
-                                        disabled={submitting || submitted}
-                                    />
-                                </div>
-                                <div>
-                                    <Label htmlFor="email">Email *</Label>
-                                    <Input
-                                        id="email"
-                                        type="email"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        required
-                                        disabled={submitting || submitted}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <Label htmlFor="company">Company *</Label>
-                                    <Input
-                                        id="company"
-                                        value={company}
-                                        onChange={(e) => setCompany(e.target.value)}
-                                        required
-                                        disabled={submitting || submitted}
-                                    />
-                                </div>
-                                <div>
-                                    <Label htmlFor="phone">Phone</Label>
-                                    <Input
-                                        id="phone"
-                                        value={phone}
-                                        onChange={(e) => setPhone(e.target.value)}
-                                        disabled={submitting || submitted}
-                                    />
-                                </div>
-                            </div>
-
-                            <div>
-                                <Label>Product *</Label>
-                                <Select
-                                    value={product}
-                                    onValueChange={setProduct}
-                                    disabled={submitting || submitted}
-                                >
-                                    <SelectTrigger>
-                                        <SelectValue placeholder="Select a product" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        {products.map((p) => (
-                                            <SelectItem key={p} value={p}>
-                                                {p}
-                                            </SelectItem>
-                                        ))}
-                                    </SelectContent>
-                                </Select>
-                            </div>
-
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <Label>Date *</Label>
-                                    <Popover>
-                                        <PopoverTrigger asChild>
-                                            <Button
-                                                variant="outline"
-                                                className="w-full justify-start text-left font-normal"
-                                                disabled={submitting || submitted}
-                                            >
-                                                <CalendarIcon className="mr-2 h-4 w-4" />
-                                                {date ? format(date, "PPP") : <span>Select date</span>}
-                                            </Button>
-                                        </PopoverTrigger>
-                                        <PopoverContent align="start" className="p-0">
-                                            <Calendar
-                                                mode="single"
-                                                selected={date}
-                                                onSelect={setDate}
-                                            />
-                                        </PopoverContent>
-                                    </Popover>
-                                </div>
-
-                                <div>
-                                    <Label>Time Slot *</Label>
-                                    <Select
-                                        value={timeSlot}
-                                        onValueChange={setTimeSlot}
-                                        disabled={submitting || submitted}
-                                    >
-                                        <SelectTrigger>
-                                            <SelectValue placeholder="Select a time" />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            {timeSlots.map((slot) => (
-                                                <SelectItem key={slot} value={slot}>
-                                                    {slot}
-                                                </SelectItem>
-                                            ))}
-                                        </SelectContent>
-                                    </Select>
-                                </div>
-                            </div>
-
-                            <div>
-                                <Label>Message (Optional)</Label>
-                                <Textarea
-                                    value={message}
-                                    onChange={(e) => setMessage(e.target.value)}
-                                    rows={4}
-                                    disabled={submitting || submitted}
-                                />
-                            </div>
-
-                            <CardFooter className="justify-end">
-                                <Button type="submit" disabled={submitting || submitted}>
-                                    {submitting
-                                        ? "Submitting..."
-                                        : submitted
-                                            ? "Submitted!"
-                                            : "Submit Request"}
-                                </Button>
-                            </CardFooter>
-                        </form>
-                    </CardContent>
-                </Card>
-            </main>
+                    <Button className="w-full" onClick={handleDemoSubmit}>
+                        Submit Request
+                    </Button>
+                </CardContent>
+            </Card>
         </div>
     );
 }
