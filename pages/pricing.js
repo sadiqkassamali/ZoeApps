@@ -2,15 +2,22 @@ import { useState } from "react";
 import Head from "next/head";
 import { Button } from "../components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "../components/ui/card";
-import { Switch } from "@/components/ui/switch"; // ✅ Assuming you're using shadcn/ui
+import { Switch } from "../components/ui/switch"
 import { motion } from "framer-motion";
 import { FaCheck, FaEnvelope, FaLinkedin, FaGithub, FaPhone } from "react-icons/fa";
 import { signIn } from "next-auth/react";
 
 export default function Pricing() {
     const [darkMode, setDarkMode] = useState(false);
-    const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">("yearly");
-
+    const [billingCycle, setBillingCycle] = useState("yearly");
+    const validCycles = ["monthly", "yearly"];
+    function updateBillingCycle(value) {
+        if (validCycles.includes(value)) {
+            setBillingCycle(value);
+        } else {
+            console.warn("Invalid billing cycle:", value);
+        }
+    }
     const toggleMode = () => setDarkMode(!darkMode);
     const toggleBilling = () => setBillingCycle(billingCycle === "yearly" ? "monthly" : "yearly");
 
