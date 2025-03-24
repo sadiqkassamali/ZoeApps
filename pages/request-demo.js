@@ -193,23 +193,19 @@ export default function RequestDemo() {
 
               <div>
                 <Label>Product *</Label>
-                <Select
-                  value={product}
-                  onValueChange={setProduct}
-                  disabled={submitting || submitted}
-                  required
-                >
+                <Select value={product} onValueChange={setProduct} disabled={submitting || submitted}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select a product" />
+                    <SelectContent>
+                      {products.map((p) => (
+                          <SelectItem key={p} value={p}>
+                            {p}
+                          </SelectItem>
+                      ))}
+                    </SelectContent>
                   </SelectTrigger>
-                  <SelectContent>
-                    {products.map((p) => (
-                      <SelectItem key={p} value={p}>
-                        {p}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
                 </Select>
+
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
