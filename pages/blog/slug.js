@@ -81,7 +81,7 @@ export default function BlogPost() {
           <div className="flex items-center space-x-4">
             <Link href="/products" className="hidden md:inline-block hover:text-blue-500">Products</Link>
             <Link href="/pricing" className="hidden md:inline-block hover:text-blue-500">Pricing</Link>
-            <Link href="/request-demo" className="hidden md:inline-block hover:text-blue-500">Request Demo</Link>
+            <Link href="/pages/request-demo" className="hidden md:inline-block hover:text-blue-500">Request Demo</Link>
             <button
               onClick={() => setDarkMode(!darkMode)}
               className="p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
