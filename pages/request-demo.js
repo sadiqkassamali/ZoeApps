@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { toast } from "react-hot-toast";
+
+// UI Components
 import { Button } from "../components/ui/button";
 import { Card, CardContent } from "../components/ui/card";
 import { Label } from "../components/ui/label";
@@ -14,49 +16,52 @@ import {
     SelectItem,
 } from "../components/ui/select";
 
-const products = [
+// Constants
+const PRODUCTS = [
     "Automated Testing",
     "Deep Fake Detection",
     "Integration & Development",
 ];
 
-function generateTimeSlots(start, end, interval) {
+// Utility: Generate time slots between start and end
+const generateTimeSlots = (start, end, intervalMinutes) => {
+    const [startH, startM] = start.split(":").map(Number);
+    const [endH, endM] = end.split(":").map(Number);
+
     const slots = [];
-    const [startHour, startMinute] = start.split(":").map(Number);
-    const [endHour, endMinute] = end.split(":").map(Number);
-    const startDate = new Date(0, 0, 0, startHour, startMinute);
-    const endDate = new Date(0, 0, 0, endHour, endMinute);
+    const current = new Date(0, 0, 0, startH, startM);
+    const endTime = new Date(0, 0, 0, endH, endM);
 
-    let current = new Date(startDate);
-
-    while (current <= endDate) {
+    while (current <= endTime) {
         const hours = current.getHours();
         const minutes = current.getMinutes();
         const ampm = hours < 12 ? "AM" : "PM";
-        const formattedHours = (hours % 12) || 12;
-        const timeString = `${formattedHours}:${minutes.toString().padStart(2, "0")} ${ampm} CST`;
+        const displayHour = hours % 12 === 0 ? 12 : hours % 12;
+        const timeString = `${displayHour}:${minutes
+            .toString()
+            .padStart(2, "0")} ${ampm} CST`;
         slots.push(timeString);
-        current.setMinutes(current.getMinutes() + interval);
+        current.setMinutes(current.getMinutes() + intervalMinutes);
     }
 
     return slots;
-}
+};
 
-const timeSlots = generateTimeSlots("08:00", "16:30", 45);
+const TIME_SLOTS = generateTimeSlots("08:00", "16:30", 45);
 
 export default function RequestDemo() {
     const [product, setProduct] = useState("");
-    const [timeSlot, setTimeSlot] = useState("");
     const [date, setDate] = useState("");
+    const [time, setTime] = useState("");
 
-    const handleDemoSubmit = () => {
-        if (!product || !timeSlot || !date) {
+    const handleSubmit = () => {
+        if (!product || !date || !time) {
             toast.error("Please select all options.");
             return;
         }
 
-        toast.success(`Demo requested for ${product} on ${date} at ${timeSlot}`);
-        // You can add API submission logic here
+        toast.success(`Demo requested for ${product} on ${date} at ${time}`);
+        // Optional: API call here
     };
 
     return (
@@ -65,6 +70,7 @@ export default function RequestDemo() {
                 <CardContent className="space-y-6 pt-6">
                     <h2 className="text-2xl font-bold text-center">Request a Demo</h2>
 
+                    {/* Product Selection */}
                     <div className="space-y-2">
                         <Label>Select a Product</Label>
                         <Select onValueChange={setProduct}>
@@ -72,15 +78,16 @@ export default function RequestDemo() {
                                 <SelectValue placeholder="Choose a product" />
                             </SelectTrigger>
                             <SelectContent>
-                                {products.map((prod) => (
-                                    <SelectItem key={prod} value={prod}>
-                                        {prod}
+                                {PRODUCTS.map((item) => (
+                                    <SelectItem key={item} value={item}>
+                                        {item}
                                     </SelectItem>
                                 ))}
                             </SelectContent>
                         </Select>
                     </div>
 
+                    {/* Date Input */}
                     <div className="space-y-2">
                         <Label>Select a Date</Label>
                         <Input
@@ -90,14 +97,15 @@ export default function RequestDemo() {
                         />
                     </div>
 
+                    {/* Time Slot Selection */}
                     <div className="space-y-2">
                         <Label>Select a Time Slot</Label>
-                        <Select onValueChange={setTimeSlot}>
+                        <Select onValueChange={setTime}>
                             <SelectTrigger>
                                 <SelectValue placeholder="Choose a time slot" />
                             </SelectTrigger>
                             <SelectContent>
-                                {timeSlots.map((slot) => (
+                                {TIME_SLOTS.map((slot) => (
                                     <SelectItem key={slot} value={slot}>
                                         {slot}
                                     </SelectItem>
@@ -106,7 +114,8 @@ export default function RequestDemo() {
                         </Select>
                     </div>
 
-                    <Button className="w-full" onClick={handleDemoSubmit}>
+                    {/* Submit Button */}
+                    <Button className="w-full" onClick={handleSubmit}>
                         Submit Request
                     </Button>
                 </CardContent>
